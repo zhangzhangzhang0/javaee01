@@ -13,10 +13,10 @@
 
 
     <dependencies>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.example</groupId>
             <artifactId>db</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -27,6 +27,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.2</version>
         </dependency>
     </dependencies>
 

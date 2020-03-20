@@ -20,12 +20,12 @@ public class StudentHomeworkJdbc extends base {
         }
     }
     //学生上交作业
-    public int addHomework(StudentHomework sh){
+    public int addHomework(StudentHomework sh) throws SQLException {
         String str="INSERT INTO `s_student_homework`(student_id,homework_id,homework_title,homework_content,create_time) VALUE(?,?,?,?,?)";
         Timestamp ts = new Timestamp(sh.getCreateTime().getTime());
         return executeUpdate(str, new Object[]{sh.getStudentId(),sh.getHomeworkId(),sh.getHomeworkTitle(),sh.getHomeworkContent(),ts});
     }
-    public int deleteHomework(StudentHomework sh){
+    public int deleteHomework(StudentHomework sh) throws SQLException {
         String str="DELETE FROM `s_student_homework`WHERE student_id=?";
         System.out.println(sh.getStudentId());
         System.out.println(str);
@@ -36,19 +36,12 @@ public class StudentHomeworkJdbc extends base {
 
     //读取数据库中 s_student_homework表
     public static List<StudentHomework> selectAll(){
-        String url = "jdbc:mysql://127.0.0.1:3306/j1?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT";
-        String driverName = "com.mysql.cj.jdbc.Driver";
+
         String sqlString = "SELECT * FROM j1.s_student_homework";
-        try {
-            // 加载驱动
-            Class.forName(driverName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         List<StudentHomework> list = new ArrayList<>();
 
-        try(Connection connection =  DriverManager.getConnection(url, "root","123456");) {
+        try(Connection connection =  DatabasePool.getHikariDataSource().getConnection()){
             try(Statement statement = connection.createStatement()){
                 try(ResultSet resultSet = statement.executeQuery(sqlString)){
                     // 获取执行结果

@@ -5,6 +5,7 @@ import org.example.javaee.class01.model.Homework;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 public class HomeworkServlet extends HttpServlet {
@@ -28,7 +29,12 @@ public class HomeworkServlet extends HttpServlet {
         Date date = c.getTime();
         h.setCreateTime(date);
 
-        int i=hj.addHomework(h);
+        int i= 0;
+        try {
+            i = hj.addHomework(h);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if(i>0){
             System.out.println("true");

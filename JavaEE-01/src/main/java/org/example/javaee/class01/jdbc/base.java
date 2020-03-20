@@ -18,20 +18,20 @@ public class base {
     Connection conn=null;
 
     //获取连接
-    protected  Connection getconn(){
+    /***protected  Connection getconn(){
         conn=null;
         try {
             // 加载驱动
             Class.forName(driver);
             // 创建连接
-            conn=DriverManager.getConnection(url, "root","123456");
+            conn=  DatabasePool.getHikariDataSource().getConnection();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return conn;
-    }
+    }*/
     //关闭数据库连接
     protected void closeAll(Connection conn ,PreparedStatement ps,ResultSet rs){
         if(rs!=null)
@@ -51,12 +51,12 @@ public class base {
 
     //用于增删改的方法
     //接受sql语句和对象数组
-    public int executeUpdate(String sql ,Object []ob){
+    public int executeUpdate(String sql ,Object []ob) throws SQLException {
 
-        conn=getconn();
+       // conn=DatabasePool.getHikariDataSource().getConnection();
         PreparedStatement ps=null;
 
-        try {
+        try (Connection conn =  DatabasePool.getHikariDataSource().getConnection()){
 
             ps=prepareStatement(conn,sql,ob);
             int i=ps.executeUpdate();

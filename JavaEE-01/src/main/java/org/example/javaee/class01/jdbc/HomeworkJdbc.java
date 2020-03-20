@@ -22,7 +22,7 @@ public class HomeworkJdbc extends base {
     }
 
     //老师增加作业
-    public int addHomework(Homework h){
+    public int addHomework(Homework h) throws SQLException {
         String str="INSERT INTO `s_homework`(title,content,create_time) VALUE(?,?,?)";
         //Date转为Timestamp
         Timestamp ts = new Timestamp(h.getCreateTime().getTime());
@@ -32,19 +32,11 @@ public class HomeworkJdbc extends base {
 
     //读取数据库中 s_homework表
     public static List<Homework> selectAll(){
-        String url = "jdbc:mysql://127.0.0.1:3306/j1?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT";
-        String driverName = "com.mysql.cj.jdbc.Driver";
         String sqlString = "SELECT * FROM j1.s_homework";
-        try {
-            // 加载驱动
-            Class.forName(driverName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         List<Homework> list = new ArrayList<>();
 
-        try(Connection connection =  DriverManager.getConnection(url, "root","123456");) {
+        try(Connection connection =  DatabasePool.getHikariDataSource().getConnection()) {
+    //    try(Connection connection =  DriverManager.getConnection(url, "root","123456");) {
             try(Statement statement = connection.createStatement()){
                 try(ResultSet resultSet = statement.executeQuery(sqlString)){
                     // 获取执行结果

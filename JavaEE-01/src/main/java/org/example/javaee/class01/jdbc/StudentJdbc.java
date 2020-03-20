@@ -21,33 +21,25 @@ public class StudentJdbc extends base {
     }
 
 //老师添加学生
-    public int addStudent(Student s){
+    public int addStudent(Student s) throws SQLException {
         String str="INSERT INTO `s_student`(id,name,create_time) VALUE(?,?,?)";
         Timestamp ts = new Timestamp(s.getCreateTime().getTime());
 
         return executeUpdate(str, new Object[]{s.getStudentId(),s.getName(),s.getCreateTime()});
     }
 //老师删除学生
-    public int deleteStudent(Student s){
+    public int deleteStudent(Student s) throws SQLException {
         String sql="DELETE FROM `s_student` WHERE id=?";
         return executeUpdate(sql, new Object[]{s.getStudentId()});
     }
 
 //读取数据库中 s_student表
     public static List<Student> selectAll(){
-        String url = "jdbc:mysql://127.0.0.1:3306/j1?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT";
-        String driverName = "com.mysql.cj.jdbc.Driver";
         String sqlString = "SELECT * FROM j1.s_student";
-        try {
-            // 加载驱动
-            Class.forName(driverName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
         List<Student> list = new ArrayList<>();
 
-        try(Connection connection =  DriverManager.getConnection(url, "root","123456");) {
+        try(Connection connection =  DatabasePool.getHikariDataSource().getConnection()){
             try(Statement statement = connection.createStatement()){
                 try(ResultSet resultSet = statement.executeQuery(sqlString)){
                     // 获取执行结果

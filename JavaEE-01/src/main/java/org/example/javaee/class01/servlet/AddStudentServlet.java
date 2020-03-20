@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 @WebServlet("/add")
@@ -33,7 +34,12 @@ public class AddStudentServlet extends HttpServlet {
         Date date = c.getTime();
         s.setCreateTime(date);
         //调用jdbc中增添学生的方法
-        int i=sj.addStudent(s) ;
+        int i= 0;
+        try {
+            i = sj.addStudent(s);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if(i>0){
             System.out.println("true");

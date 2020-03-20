@@ -7,6 +7,7 @@ import org.example.javaee.class01.model.StudentHomework;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 public class SubmitHomeworkServlet extends HttpServlet {
@@ -34,7 +35,12 @@ public class SubmitHomeworkServlet extends HttpServlet {
 
         //   if(req.getParameter(!"studentId").equals())
 
-        int i=shj.addHomework(sh);
+        int i= 0;
+        try {
+            i = shj.addHomework(sh);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if(i>0){
             //完成数据库操作，返回响应给jsp

@@ -8,6 +8,7 @@ import org.example.javaee.class01.model.StudentHomework;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 
 
 public class DeleteStudentServlet extends HttpServlet {
@@ -25,8 +26,15 @@ public class DeleteStudentServlet extends HttpServlet {
         StudentJdbc sj = new StudentJdbc();
         s.setStudentId(Long.parseLong(req.getParameter("id")));
         sh.setStudentId(Long.parseLong(req.getParameter("id")));
-        int j=shj.deleteHomework(sh);
-        int i=sj.deleteStudent(s);
+
+        int j=0;
+        int i= 0;
+        try {
+            j=shj.deleteHomework(sh);
+            i = sj.deleteStudent(s);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         if(i>0){
