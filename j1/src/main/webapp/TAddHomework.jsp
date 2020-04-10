@@ -1,8 +1,8 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.example.spring.mvc.model.Homework" %>
-<%@ page import="org.example.spring.mvc.bean.Beans" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.example.spring.mvc.jdbc.HomeworkJdbc" %>
 <%--
   Created by IntelliJ IDEA.
   User: PC
@@ -34,7 +34,7 @@
         <td>创建时间</td>
     </tr>
     <%
-        List<Homework> list = Beans.selectAll1();
+        List<Homework> list = HomeworkJdbc.selectAll();
         if(null == list || list.size() <= 0){
             out.print("None data.");
         }else {

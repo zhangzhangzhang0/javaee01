@@ -8,6 +8,12 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
+  <!-- 全局 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/app-context.xml</param-value>
+  </context-param>
+
   <!-- 自定义编码拦截器 也是spring为我们写好的 -->
   <filter>
     <filter-name>setcharacter</filter-name>
@@ -23,17 +29,19 @@
       <param-value>true</param-value>
     </init-param>
   </filter>
+
   <filter-mapping>
     <filter-name>setcharacter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <!-- 入口(与servlet相关的容器) -->
   <servlet>
     <servlet-name>app</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/app-context.xml</param-value>
+      <param-value>/WEB-INF/app-servlet.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

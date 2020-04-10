@@ -7,11 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-
-<%@ page import="org.example.spring.mvc.bean.Beans" %>
 <%@ page import="org.example.spring.mvc.model.StudentHomework" %>
 <%@ page import="org.example.spring.mvc.model.Student" %>
 <%@ page import="org.example.spring.mvc.model.Homework" %>
+<%@ page import="org.example.spring.mvc.jdbc.StudentHomeworkJdbc" %>
+<%@ page import="org.example.spring.mvc.jdbc.StudentJdbc" %>
+<%@ page import="org.example.spring.mvc.jdbc.HomeworkJdbc" %>
 <html>
   <head>
     <title>My Homework</title>
@@ -36,7 +37,7 @@
       <td>创建时间</td>
     </tr>
     <%
-      List<StudentHomework> list = Beans.selectAll2();
+      List<StudentHomework> list = StudentHomeworkJdbc.selectAll();
       if(null == list || list.size() <= 0){
         out.print("None data.");
       }else {
@@ -66,8 +67,8 @@
         <td>创建时间</td>
       </tr>
       <%
-        List<Student> list2 = Beans.selectAll3();
-        if(null == list || list.size() <= 0){
+        List<Student> list2 = StudentJdbc.selectAll();
+        if(null == list2 || list2.size() <= 0){
           out.print("None data.");
         }else {
           for (Student s : list2){
@@ -92,7 +93,8 @@
               <td>创建时间</td>
           </tr>
           <%
-              List<Homework> list3 = Beans.selectAll1();
+              List<Homework> list3 = HomeworkJdbc.selectAll();
+           //   List<Homework> list3 = (List<Homework>) request.getAttribute("hwList");
               if(null == list3 || list3.size() <= 0){
                   out.print("None data.");
               }else {

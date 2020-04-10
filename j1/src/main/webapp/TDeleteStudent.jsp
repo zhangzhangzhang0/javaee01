@@ -7,15 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.spring.mvc.bean.Beans" %>
 <%@ page import="org.example.spring.mvc.model.Student" %>
+<%@ page import="org.example.spring.mvc.jdbc.StudentJdbc" %>
 
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>select</title>
+    <title>Delete</title>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
         <td>删除学生</td>
     </tr>
     <%
-        List<Student> list2 = Beans.selectAll3();
+        List<Student> list2 = StudentJdbc.selectAll();
         if(null == list2 || list2.size() <= 0){
             out.print("None data.");
         }else {

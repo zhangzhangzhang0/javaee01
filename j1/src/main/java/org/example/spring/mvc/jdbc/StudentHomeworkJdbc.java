@@ -1,6 +1,8 @@
 package org.example.spring.mvc.jdbc;
 
 import org.example.spring.mvc.model.StudentHomework;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,14 +13,14 @@ import java.util.List;
 
  **/
 //调用base类中的方法进行增和查操作
+@Configuration
 public class StudentHomeworkJdbc extends base {
-    public static void main(String[] args) {
-        List<StudentHomework> list = selectAll();
 
-        for (StudentHomework sh : list){
-            System.out.println(sh.getHomeworkContent());
-        }
+    @Bean
+    public StudentHomeworkJdbc getStudentHomeworkJdbc(){
+        return new StudentHomeworkJdbc();
     }
+
     //学生上交作业
     public int addHomework(StudentHomework sh) throws SQLException {
         String str="INSERT INTO `s_student_homework`(student_id,homework_id,homework_title,homework_content,create_time) VALUE(?,?,?,?,?)";
@@ -33,6 +35,42 @@ public class StudentHomeworkJdbc extends base {
         return executeUpdate(str, new Object[]{sh.getStudentId()});
     }
 
+    public static List<StudentHomework> find(Long hwId){
+
+        String sqlString = "SELECT * FROM j1.s_student_homework WHERE homework_id="+ hwId;
+        List<StudentHomework> list2 = new ArrayList<>();
+
+        try(Connection connection =  DatabasePool.getHikariDataSource().getConnection()){
+            try(Statement statement = connection.createStatement()){
+                try(ResultSet resultSet = statement.executeQuery(sqlString)){
+                    // 获取执行结果
+                    while (resultSet.next()){
+
+                        StudentHomework sh = new StudentHomework();
+                        sh.setId(resultSet.getLong("id"));
+                        sh.setStudentId(resultSet.getLong("student_id"));
+                        sh.setHomeworkId(resultSet.getLong("homework_id"));
+                        sh.setHomeworkTitle(resultSet.getString("homework_title"));
+                        sh.setHomeworkContent(resultSet.getString("homework_content"));
+                        sh.setCreateTime(resultSet.getTimestamp("create_time"));
+
+                        System.out.println(sh.getCreateTime());
+                        list2.add(sh);
+
+
+                    }
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list2;
+
+    }
 
     //读取数据库中 s_student_homework表
     public static List<StudentHomework> selectAll(){
@@ -41,7 +79,9 @@ public class StudentHomeworkJdbc extends base {
 
         List<StudentHomework> list = new ArrayList<>();
         base b=new base();
-        try(Connection connection =  b.getconn()){
+        //   try(Connection connection =  b.getconn()){
+
+        try(Connection connection =  DatabasePool.getHikariDataSource().getConnection()){
             try(Statement statement = connection.createStatement()){
                 try(ResultSet resultSet = statement.executeQuery(sqlString)){
                     // 获取执行结果
@@ -68,4 +108,5 @@ public class StudentHomeworkJdbc extends base {
         return list;
 
     }
+
 }

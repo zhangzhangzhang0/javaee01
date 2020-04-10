@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: PC
-  Date: 2020/3/7
-  Time: 12:08
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.example.spring.mvc.model.Homework" %>
-<%@ page import="org.example.spring.mvc.bean.Beans" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.example.spring.mvc.jdbc.HomeworkJdbc" %>
 
 <html>
 <head>
@@ -24,63 +18,46 @@
 <table style="margin:50px 0 20px 0;"align="center" width="960" border="1"
        bgcolor="black" cellpadding="1" cellspacing="1">
     <tr align="center" bgcolor="#FFC8B4" height="50">
-        <td>ID</td>
+        <td>学生学号</td>
+        <td>作业ID</td>
         <td>作业标题</td>
         <td>作业内容</td>
         <td>创建时间</td>
+        <td>提交作业</td>
     </tr>
     <%
-        List<Homework> list = Beans.selectAll1();
+
+        List<Homework> list = HomeworkJdbc.selectAll();
         if(null == list || list.size() <= 0){
             out.print("None data.");
         }else {
             for (Homework h : list){
     %>
     <tr align="center" bgcolor="white" height="30">
+
+        <td><input name="sId" readonly  value="${pageContext.request.getParameter("sId")}"></td>
         <td><%=h.getId()%></td>
         <td><%=h.getHomeworkTitle()%></td>
         <td><%=h.getHomeworkContent()%></td>
         <td><%=h.getCreateTime()%></td>
+        <td><a href="${pageContext.request.contextPath}/app/submit2?hwId=<%=h.getId()%>&&sId=${pageContext.request.getParameter("sId")}&&hwTitle=<%=h.getHomeworkTitle()%>&&hwContent=<%=h.getHomeworkContent()%>"><input type="button" value="提交"></a></td>
     </tr>
     <%
             }
         }
     %>
+
+
+
+    <form action="/j1_war_exploded/SChoose.jsp" method=post >
+        <table class="table"align="center" border="1" width="50%" cellpadding="6">
+            <tr>
+                <th colspan="2" align="center" ><a href="${pageContext.request.contextPath}/app/login?sId=${pageContext.request.getParameter("sId")}"><input type="button" value="返回"></a></th>
+            </tr>
+        </table>
+    </form>
 </table>
-
-<form action="${pageContext.request.contextPath}/app/SubmitHomeworkServlet"  >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-
-        <tr>
-            <td align="center" >学生学号</td>
-            <td align="left" ><input type="text" name="studentId"></td>
-        </tr>
-        <tr>
-            <td align="center" >第几次作业</td>
-            <td align="left" ><input type="text" name="homeworkId"></td>
-        </tr>
-        <tr>
-            <td align="center" >作业标题</td>
-            <td align="left" ><input type="text" name="homeworkTitle"></td>
-        </tr>
-        <tr>
-            <td align="center" >作业内容</td>
-            <td align="left" ><input type="text" name="homeworkContent"></td>
-        </tr>
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" name="submit" value="提交"></th>
-        </tr>
-    </table>
-</form>
-
-</table>
-<form action="/j1_war_exploded/main.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" value="返回" /></th>
-        </tr>
-    </table>
-</form>
 
 </body>
 </html>
+

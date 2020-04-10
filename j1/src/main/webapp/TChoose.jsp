@@ -38,9 +38,9 @@
 
 <form action="TSearch.jsp" method=post >
     <table class="table"align="center" border="1" width="50%" cellpadding="6">
-       <tr>
-           <th colspan="2" align="center" ><input type="submit" value="查询作业及学生名单" /></th>
-       </tr>
+        <tr>
+            <th colspan="2" align="center" ><input type="submit" value="查询作业及学生名单" /></th>
+        </tr>
     </table>
 </form>
 

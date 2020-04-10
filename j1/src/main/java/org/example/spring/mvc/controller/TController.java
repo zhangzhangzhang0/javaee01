@@ -6,7 +6,10 @@ import org.example.spring.mvc.jdbc.StudentJdbc;
 import org.example.spring.mvc.model.Homework;
 import org.example.spring.mvc.model.Student;
 import org.example.spring.mvc.model.StudentHomework;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,28 +22,36 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 //@RequestMapping("/teacher/")
 public class TController extends HttpServlet {
+
+    ApplicationContext applicationContext1 = new AnnotationConfigApplicationContext(HomeworkJdbc.class);
+    HomeworkJdbc homeworkJdbc = (HomeworkJdbc) applicationContext1.getBean("getHomeworkJdbc");
+
+    ApplicationContext applicationContext2 = new AnnotationConfigApplicationContext(StudentHomeworkJdbc.class);
+    StudentHomeworkJdbc studentHomeworkJdbc = (StudentHomeworkJdbc) applicationContext2.getBean("getStudentHomeworkJdbc");
+
+    ApplicationContext applicationContext3 = new AnnotationConfigApplicationContext(StudentJdbc.class);
+    StudentJdbc studentJdbc = (StudentJdbc) applicationContext3.getBean("getStudentJdbc");
+
     @RequestMapping("/DeleteStudentServlet")
     public void deleteStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setCharacterEncoding("utf-8");
         req.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();
 
         StudentHomework sh = new StudentHomework();
-        StudentHomeworkJdbc shj=new StudentHomeworkJdbc();
         Student s = new Student();
-        StudentJdbc sj = new StudentJdbc();
-        s.setStudentId(Long.parseLong(req.getParameter("id")));
-    //    sh.setStudentId(Long.parseLong(req.getParameter("id")));
 
+        s.setStudentId(Long.parseLong(req.getParameter("id")));
+        sh.setStudentId(Long.parseLong(req.getParameter("id")));
         int j=0;
-        int i= 0;
+        int i=0;
         try {
-            j=shj.deleteHomework(sh);
-            i = sj.deleteStudent(s);
+            j=studentHomeworkJdbc.deleteHomework(sh);
+            i=studentJdbc.deleteStudent(s);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,11 +59,9 @@ public class TController extends HttpServlet {
         if(i>0){
             System.out.println("true");
             out.print("<script>alert('Delete Successfully')");
-          //  return "TDeleteStudent.jsp";
         }else{
             System.out.println("false");
             out.print("<script>alert('Failed')");
-         //   return "TDeleteStudent.jsp";
         }
         req.getRequestDispatcher("/TDeleteStudent.jsp").forward(req,resp);
     }
@@ -61,7 +70,7 @@ public class TController extends HttpServlet {
     public void addStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("utf-8");
         Student s = new Student();
-        StudentJdbc sj=new StudentJdbc();
+    //    StudentJdbc sj=new StudentJdbc();
         PrintWriter out = resp.getWriter();
         System.out.println("11");
         s.setStudentId(Long.parseLong(req.getParameter("id")));
@@ -73,7 +82,7 @@ public class TController extends HttpServlet {
         //调用jdbc中增添学生的方法
         int i= 0;
         try {
-            i = sj.addStudent(s);
+            i = studentJdbc.addStudent(s);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,25 +90,26 @@ public class TController extends HttpServlet {
         if(i>0){
             System.out.println("true");
             out.print("<script>alert('Add Successfully')");
-            //   out.print("<script>alert('Add Successfully') </script>");
-         //   return "/TAddStudent.jsp"
 
         }else{
             System.out.println("false");
             out.print("<script>alert('Failed')");
-        //    req.setAttribute("message","添加失败");
-            //return "/TAddStudent.jsp";
         }
 
         req.getRequestDispatcher("/TAddStudent.jsp").forward(req,resp);
     }
 
+    @RequestMapping("/check")
+    public void check (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        System.out.println(req.getParameter("hwId"));
+        req.getRequestDispatcher("/TCheckHomework2.jsp").forward(req,resp);
+    }
 
     @RequestMapping("/HomeworkServlet")
     public void addHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("utf-8");
         Homework h = new Homework();
-        HomeworkJdbc hj=new HomeworkJdbc();
+      //  HomeworkJdbc hj=new HomeworkJdbc();
         PrintWriter out = resp.getWriter();//如果成功弹出并跳到下一个页面
 
         h.setHomeworkTitle(req.getParameter("title"));
@@ -110,7 +120,7 @@ public class TController extends HttpServlet {
 
         int i= 0;
         try {
-            i = hj.addHomework(h);
+            i = homeworkJdbc.addHomework(h);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,5 +136,7 @@ public class TController extends HttpServlet {
         }
         req.getRequestDispatcher("/TAddHomework.jsp").forward(req,resp);
     }
+
+
 
 }

@@ -1,6 +1,7 @@
-<%@ page import="org.example.spring.mvc.bean.Beans" %>
+
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.spring.mvc.model.Student" %><%--
+<%@ page import="org.example.spring.mvc.model.Student" %>
+<%@ page import="org.example.spring.mvc.jdbc.StudentJdbc" %><%--
   Created by IntelliJ IDEA.
   User: PC
   Date: 2020/3/7
@@ -34,7 +35,7 @@
         <td>创建时间</td>
     </tr>
     <%
-        List<Student> list2 = Beans.selectAll3();
+        List<Student> list2 = StudentJdbc.selectAll();
         if(null == list2 || list2.size() <= 0){
             out.print("None data.");
         }else {
