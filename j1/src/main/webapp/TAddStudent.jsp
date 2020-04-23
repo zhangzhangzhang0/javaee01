@@ -1,84 +1,208 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.spring.mvc.model.Student" %>
-<%@ page import="org.example.spring.mvc.jdbc.StudentJdbc" %><%--
-  Created by IntelliJ IDEA.
-  User: PC
-  Date: 2020/3/7
-  Time: 13:35
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="org.example.spring.mvc.jdbc.JdbcService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+path+"/";
+%>
 
-
-<%--  2019-4-22 17:30:07  --%>
+<base href="<%=basePath%>">
 
 <!DOCTYPE html>
 <html>
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="format-detection" content="telephone=no">
     <meta charset="UTF-8">
-    <title>select</title>
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/form.css" rel="stylesheet">
+    <link href="css/calendar.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/icons.css" rel="stylesheet">
+    <link href="css/generics.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Add</title>
 </head>
-<body>
-
-<style type="text/css">  <!--  .red {   color: #880000;   font-size: 24px;  }  -->  </style>
-<div   style="position: relative; width: 100%; display: table; * position: absolute; * top: 10%; * left: 0;">
-    <p    style="position: absolute; top: 10%; left: 0; text-align: center; width: 100%; * top: 0;">
-        <strong class="red">作业</strong>   </p>  </div>
-
-<table style="margin:50px 0 20px 0;"align="center" width="960" border="1"
-       bgcolor="black" cellpadding="1" cellspacing="1">
-    <tr align="center" bgcolor="#FFC8B4" height="50">
-        <td>学生学号</td>
-        <td>学生姓名</td>
-        <td>创建时间</td>
-    </tr>
-    <%
-        List<Student> list2 = StudentJdbc.selectAll();
-        if(null == list2 || list2.size() <= 0){
-            out.print("None data.");
-        }else {
-            for (Student s : list2){
-    %>
-    <tr align="center" bgcolor="white" height="30">
-        <td><%=s.getStudentId()%></td>
-        <td><%=s.getName()%></td>
-        <td><%=s.getCreateTime()%></td>
-    </tr>
-    <%
-            }
-        }
-    %>
-
-</table>
+<body id="skin-blur-violate">
 
 
+<header id="header" class="media">
+    <a href="" id="menu-toggle"></a>
+    <a class="logo pull-left" >Homework Platform 1.0</a>
+    <!--------------------------------- 顶部时间栏 ---------------------------------------->
+    <div class="media-body">
+        <div class="media" id="top-menu">
 
-<form action="${pageContext.request.contextPath}/app/addStudent" >
-    <table style="margin:0px 0 20px 0;"class="table"align="center" border="1" width="50%" cellpadding="6">
+            <div id="time" class="pull-right">
+                <span id="hours"></span>
+                :
+                <span id="min"></span>
+                :
+                <span id="sec"></span>
+            </div>
 
-        <tr>
-            <td align="center" >学生学号</td>
-            <td align="left" ><input type="text" name="id"></td>
-        </tr>
-        <tr>
-            <td align="center" >学生姓名</td>
-            <td align="left" ><input type="text" name="name"></td>
-        </tr>
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" name="submit" value="添加"></th>
-        </tr>
-    </table>
-</form>
+        </div>
+    </div>
+</header>
 
-<form action="/j1_war_exploded/TChoose.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" value="返回" /></th>
-        </tr>
-    </table>
-</form>
+<div class="clearfix"></div>
+
+<section id="main" class="p-relative" role="main">
+
+    <!--------------------------------- 左侧栏 ---------------------------------------->
+    <aside id="sidebar">
+
+        <!-- Sidbar Widgets -->
+        <div class="side-widgets overflow">
+            <!-- Profile Menu -->
+            <div class="text-center s-widget m-b-25 dropdown" id="profile-menu">
+                <a href="" data-toggle="dropdown">
+                    <img class="profile-pic animated" src="img/11.png" alt="">
+                </a>
+
+                <h4 class="m-0">Teacher</h4>
+            </div>
+
+            <!-- Calendar -->
+            <div class="s-widget m-b-25">
+                <div id="sidebar-calendar"></div>
+            </div>
+
+        </div>
+
+        <!--------------------------------- 最左侧老师功能栏 ---------------------------------------->
+        <ul class="list-unstyled side-menu">
+            <li>
+                <a class="sa-side-home" href="TChoose.jsp">
+                    <span class="menu-item">Back to Teacher's Home Page</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-form" href="TAddStudent.jsp">
+                    <span class="menu-item">Add Student</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-typography" href="TDeleteStudent.jsp">
+                    <span class="menu-item">Delete Student</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-widget" href="TSearch.jsp">
+                    <span class="menu-item">Check List</span>
+                </a>
+            </li>
+            <li class="active">
+                <a class="sa-side-table" href="TAddHomework.jsp">
+                    <span class="menu-item">Add Homework</span>
+                </a>
+            </li>
+            <li class="active">
+                <a class="sa-side-form" href="TCheck.jsp">
+                    <span class="menu-item">Check Homework</span>
+                </a>
+            </li>
+            <li class="active">
+                <a class="sa-side-ui" href="main.jsp">
+                    <span class="menu-item">Back to Home Page</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Content -->
+    <section id="content" class="container">
+
+        <div class="block-area" id="basic">
+            <h3 class="block-title">Add Student</h3>
+            <form action="${pageContext.request.contextPath}/app/addStudent" role="form">
+
+                <div class="form-group">
+                    <label for="id">StudentId</label>
+                    <input type="text" name="id" class="form-control input-sm" id="id" placeholder="Enter ID">
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Student Name</label>
+                    <input type="text" name="name" class="form-control input-sm" id="name" placeholder="Name">
+                </div>
+
+                <button type="submit" name="submit" class="btn btn-sm m-t-10">Add</button>
+            </form>
+
+        </div>
+
+        <hr class="whiter m-t-20" />
+
+        <div class="block-area" id="Student">
+            <h3 class="block-title">Student</h3>
+            <div class="table-responsive overflow">
+                <table class="tile table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>学生学号</th>
+                        <th>学生姓名</th>
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <%
+                        List<Student> list2 =JdbcService.selectAll2();
+                        if(null == list2 || list2.size() <= 0){
+                            out.print("None data.");
+                        }else {
+                            for (Student s : list2){
+                    %>
+
+                    <tr>
+                        <td><%=s.getStudentId()%></td>
+                        <td><%=s.getName()%></td>
+                        <td><%=s.getCreateTime()%></td>
+                    </tr>
+
+
+                    <%
+                            }
+                        }
+                    %>
+                </table>
+            </div>
+        </div>
+
+
+
+    </section>
+
+    <br/><br/>
+</section>
+
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script> <!-- jQuery Library -->
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<!--  Form Related -->
+<script src="js/select.min.js"></script> <!-- Custom Select -->
+<script src="js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+<script src="js/fileupload.min.js"></script> <!-- File Upload -->
+<script src="js/autosize.min.js"></script> <!-- Textare autosize -->
+<!-- UX -->
+<script src="js/scroll.min.js"></script> <!-- Custom Scrollbar -->
+<!-- Other -->
+<script src="js/calendar.min.js"></script> <!-- Calendar -->
+<script src="js/feeds.min.js"></script> <!-- News Feeds -->
+<!-- All JS functions -->
+<script src="js/functions.js"></script>
 
 
 </body>

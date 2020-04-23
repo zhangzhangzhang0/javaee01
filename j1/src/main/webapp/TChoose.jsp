@@ -1,64 +1,99 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: PC
-  Date: 2020/3/7
-  Time: 19:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Teacher</title>
+    <title>Welcome to the Homework Platform</title>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+
 </head>
+
 <body>
 
-<style type="text/css">  <!--  .red {   color: #880000;   font-size: 24px;  }  -->  </style>
-<div   style="position: relative; width: 100%; display: table; * position: absolute; * top: 10%; * left: 0;">
-    <p    style="position: absolute; top: 10%; left: 0; text-align: center; width: 100%; * top: 0;">
-        <strong class="red">欢迎老师</strong>   </p>  </div>
+<!-- PRELOADER -->
 
-<form action="TAddStudent.jsp" method=post >
-   <table style="margin:50px 0 20px 0;"class="table"align="center" border="1" width="50%" cellpadding="6">
 
-       <tr>
-           <th colspan="2" align="center" ><input type="submit" value="增加学生" /></th>
+<!-- HERO -->
+<div class="hero">
+    <!-- FRONT CONTENT -->
+    <div class="front-content">
+        <!-- CONTAINER MID -->
+        <div class="container-mid">
+            <!-- ANIMATION CONTAINER -->
+            <div class="animation-container animation-fade-down" data-animation-delay="0">
+                <img class="img-responsive logo" src="assets/img/logo.png" alt="image">
+            </div>
 
-       </tr>
-   </table>
-</form>
+            <div class="animation-container animation-fade-right" data-animation-delay="300">
+                <h1>Welcome Teacher</h1>
+            </div>
 
-<form action="TDeleteStudent.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-       <tr>
-           <th colspan="2" align="center" ><input type="submit" value="删除学生" /></th>
+            <div class="animation-container animation-fade-left" data-animation-delay="600">
+                <p class="subline">Please choose Service!</p>
+            </div>
 
-       </tr>
-    </table>
-</form>
+            <form action="TAddStudent.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="700">
+                    <input type="submit" class="open-popup" value="Add Student" /></th>
+                </div>
+            </form>
+            <form action="TDeleteStudent.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="800">
+                    <input type="submit" class="open-popup" value="Delete Student" /></th>
+                </div>
+            </form>
 
-<form action="TSearch.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" value="查询作业及学生名单" /></th>
-        </tr>
-    </table>
-</form>
 
-<form action="TAddHomework.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-       <tr>
-           <th colspan="2" align="center" ><input type="submit" value="增加作业" /></th>
-       </tr>
-    </table>
-</form>
+            <form action="TSearch.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="1000">
+                    <input type="submit" class="open-popup" value="Check" /></th>
+                </div>
+            </form>
 
-<form action="main.jsp" method=post >
-    <table class="table"align="center" border="1" width="50%" cellpadding="6">
-        <tr>
-            <th colspan="2" align="center" ><input type="submit" value="返回" /></th>
-        </tr>
-    </table>
-</form>
+            <form action="TAddHomework.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="1100">
+                    <input type="submit" class="open-popup" value="Add Homework" /></th>
+                </div>
+            </form>
+
+            <form action="TCheck.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="1100">
+                    <input type="submit" class="open-popup" value="Check Homework" /></th>
+                </div>
+            </form>
+
+            <form action="main.jsp" method=post >
+                <div class="animation-container animation-fade-up" data-animation-delay="1200">
+                    <input type="submit" class="open-popup" value="Back" /></th>
+                </div>
+            </form>
+
+
+
+        </div>
+
+    </div>
+    <!-- /FRONT CONTENT -->
+    <!-- BACKGROUND CONTENT -->
+    <div class="background-content parallax-on">
+        <div class="background-overlay"></div>
+        <div class="background-img layer" data-depth="0.05"></div>
+    </div>
+    <!-- /BACKGROUND CONTENT -->
+</div>
+<!-- /HERO -->
+
+
 
 </body>
+<script type="text/javascript" src="assets/js/plugins.js"></script>
+<script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="js/particles.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </html>
+

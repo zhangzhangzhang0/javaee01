@@ -13,6 +13,7 @@ public class StudentHomework {
     private Long id;
     private Long studentId;
     private Long homeworkId;
+    private Long score;
     private String homeworkTitle;
     private String homeworkContent;
     private Date createTime;
@@ -58,6 +59,14 @@ public class StudentHomework {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
     }
 
     public Date getUpdateTime() {

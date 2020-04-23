@@ -1,8 +1,5 @@
 package org.example.spring.mvc.controller;
-import org.example.spring.mvc.jdbc.HomeworkJdbc;
-import org.example.spring.mvc.jdbc.StudentHomeworkJdbc;
-import org.example.spring.mvc.jdbc.StudentJdbc;
-import org.example.spring.mvc.model.Homework;
+import org.example.spring.mvc.jdbc.JdbcService;
 import org.example.spring.mvc.model.Student;
 import org.example.spring.mvc.model.StudentHomework;
 import org.springframework.context.ApplicationContext;
@@ -21,14 +18,9 @@ import java.util.List;
 
 @Controller
 public class SController {
-    ApplicationContext applicationContext1 = new AnnotationConfigApplicationContext(HomeworkJdbc.class);
-    HomeworkJdbc homeworkJdbc = (HomeworkJdbc) applicationContext1.getBean("getHomeworkJdbc");
 
-    ApplicationContext applicationContext2 = new AnnotationConfigApplicationContext(StudentHomeworkJdbc.class);
-    StudentHomeworkJdbc studentHomeworkJdbc = (StudentHomeworkJdbc) applicationContext2.getBean("getStudentHomeworkJdbc");
-
-    ApplicationContext applicationContext3 = new AnnotationConfigApplicationContext(StudentJdbc.class);
-    StudentJdbc studentJdbc = (StudentJdbc) applicationContext3.getBean("getStudentJdbc");
+    ApplicationContext applicationContext3 = new AnnotationConfigApplicationContext(JdbcService.class);
+    JdbcService jdbcService = (JdbcService) applicationContext3.getBean("getJdbcService");
 
     //登陆跳转到学生选择功能界面
     @RequestMapping("/login")
@@ -36,47 +28,48 @@ public class SController {
         PrintWriter out = resp.getWriter();
         Student sId = new Student();
         sId.setStudentId(Long.parseLong(req.getParameter("sId")));
-        List<Student> list= studentJdbc.find(sId.getStudentId());
+        List<Student> list= jdbcService.find2(sId.getStudentId());
         if(null == list || list.size() <= 0){
             out.print("<script>alert('No such student')");
-            req.getRequestDispatcher("/Login.jsp").forward(req,resp);
+            req.getRequestDispatcher("/j1_war_exploded/main.jsp").forward(req,resp);
         }else{
-            req.getRequestDispatcher("/SChoose.jsp").forward(req,resp);
+           // req.getRequestDispatcher("/SChoose.jsp").forward(req,resp);
+            req.getRequestDispatcher("/SSubmit.jsp").forward(req,resp);
         }
-        req.getRequestDispatcher("/Login.jsp").forward(req,resp);
-
+        req.getRequestDispatcher("/j1_war_exploded/main.jsp").forward(req,resp);
     }
+
     //学生选择功能界面跳转到作业列表
     @RequestMapping("/submit1")
     public void submit1 (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getRequestDispatcher("/SSubmit.jsp").forward(req,resp);
     }
+
     //学生查看的作业列表跳转到提交界面
     @RequestMapping("/submit2")
     public void submit2 (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getRequestDispatcher("/SSubmit2.jsp").forward(req,resp);
     }
 
-
     //作业提交执行
     @RequestMapping("/SubmitHomeworkServlet")
     public void addHomework(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();
-
         StudentHomework sh = new StudentHomework();
         System.out.println("SubmitHomeworkServlet"+Long.parseLong(req.getParameter("sId")));
         sh.setStudentId(Long.parseLong(req.getParameter("sId")));
         sh.setHomeworkId(Long.parseLong(req.getParameter("hwId")));
         sh.setHomeworkTitle(req.getParameter("hwTitle"));
         sh.setHomeworkContent(req.getParameter("finish"));
+        System.out.println(sh.getHomeworkContent());
         Calendar c = Calendar.getInstance();
         Date date = c.getTime();
         sh.setCreateTime(date);
 
         int i= 0;
         try {
-            i = studentHomeworkJdbc.addHomework(sh);
+            i = jdbcService.addHomework(sh);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -90,12 +83,10 @@ public class SController {
             System.out.println("false");
             out.print("<script>alert('Failed')");
             //  return "/SSubmit.jsp";
+
         }
         req.setAttribute("sId",sh.getStudentId());
         req.getRequestDispatcher("/SSubmit.jsp").forward(req,resp);
     }
 
-
 }
-
-

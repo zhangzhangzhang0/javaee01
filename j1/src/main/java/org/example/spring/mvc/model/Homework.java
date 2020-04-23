@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class Homework {
     private Long id;
+    private Long num;
     private String title;
     private String content;
     private Date createTime;
@@ -21,6 +22,14 @@ public class Homework {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getNum() {
+        return num;
+    }
+
+    public void setNum(Long num) {
+        this.num = num;
     }
 
     public String getHomeworkTitle() {
