@@ -1,5 +1,7 @@
 # javaee01
 j1是4.16的作业（Beans，Controller)
+
+
 ![1](https://github.com/zhangzhangzhang0/javaee01/blob/master/j1/src/main/webapp/pic/1.png)
 ![2](https://github.com/zhangzhangzhang0/javaee01/blob/master/j1/src/main/webapp/pic/2.png)
 ![3](https://github.com/zhangzhangzhang0/javaee01/blob/master/j1/src/main/webapp/pic/3.png)
