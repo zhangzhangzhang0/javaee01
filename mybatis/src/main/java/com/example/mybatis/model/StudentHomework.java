@@ -1,7 +1,6 @@
 package com.example.mybatis.model;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.util.Date;
 
@@ -11,8 +10,7 @@ import java.util.Date;
  * 学生提交的作业
 
  */
-@Getter
-@Setter
+
 public class StudentHomework {
     private Long id;
     private Long studentId;

@@ -5,7 +5,7 @@
          version="4.0">
 
   <welcome-file-list>
-    <welcome-file>main.jsp</welcome-file>
+    <welcome-file>TLogin.jsp</welcome-file>
   </welcome-file-list>
 
   <!-- 全局 -->
@@ -18,28 +18,6 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-
-
-  <!-- 自定义编码拦截器 也是spring为我们写好的 -->
-  <filter>
-    <filter-name>setcharacter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>utf-8</param-value>
-    </init-param>
-
-    <init-param>
-      <param-name>forceEncoding</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>setcharacter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
 
 
   <!-- 入口(与servlet相关的容器) -->

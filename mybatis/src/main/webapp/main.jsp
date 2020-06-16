@@ -46,15 +46,15 @@
             </div>
 
 
-            <form action="TChoose.jsp" method=post >
+            <form method=post >
                 <div class="animation-container animation-fade-up" data-animation-delay="900">
-                    <input type="submit" class="open-popup" value="Teacher" /></th>
+                    <input type="submit" class="open-aoa" value="Teacher" /></th>
                 </div>
             </form>
 
             <form action="/Login.jsp" method=post >
                 <div class="animation-container animation-fade-up" data-animation-delay="900">
-                   <div type="submit" class="open-popup">Student</div>
+                    <div type="submit" class="open-popup">Student</div>
                 </div>
             </form>
 
@@ -93,18 +93,15 @@
             <div class="row form-section">
 
                 <div class="col-md-7 col-sm-7 col-xs-7">
-                <input name="sId" type="text" class="form-control" />
+                    <input name="sId" type="text" class="form-control" />
                 </div>
 
                 <div class="col-md-5 col-sm-5 col-xs-5">
-                <button type="submit" class="btn btn-primary form-control">Subscribe</button>
+                    <button type="submit" class="btn btn-primary form-control">Subscribe</button>
                 </div>
             </div>
         </form>
     </div>
-<script type="text/javascript" src="assets/js/plugins.js"></script>
-<script type="text/javascript" src="assets/js/main.js"></script>
-
 
 </div>
 

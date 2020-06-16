@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html lang="zxx">
 <!-- Head -->
@@ -22,23 +16,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             window.scrollTo(0, 1);
         }
     </script>
-    <!-- //Meta-Tags -->
-    <!-- Index-Page-CSS -->
     <link rel="stylesheet" href="css/style22.css" type="text/css" media="all">
-    <!-- //Custom-Stylesheet-Links -->
-    <!--fonts -->
-    <!-- //fonts -->
     <link rel="stylesheet" href="css/2.css" type="text/css" media="all">
-    <!-- //Font-Awesome-File-Links -->
-
-    <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css?family=Quattrocento+Sans:400,400i,700,700i" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <!-- Google fonts -->
 
+
 </head>
-<!-- //Head -->
-<!-- Body -->
 
 <body>
 
@@ -48,44 +37,60 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="bottom-grid">
             <div class="bottom-grid">
 
-                <div class="links">
-                    <ul class="links-unordered-list">
-                        <li class="">
-                            <a class="">S T U D E N T | L O G I N</a>
-                        </li>
+            <div class="links">
+                <ul class="links-unordered-list">
+                    <li class="">
+                        <a class="">T E A C H E R | R E G I S T E R</a>
+                    </li>
 
-                    </ul>
-                </div>
+                </ul>
             </div>
+        </div>
+
 
             <div class="links">
                 <ul class="links-unordered-list">
-                    <li class="active">
+                    <li class="">
                         <a href="Login.jsp" class="">Student</a>
                     </li>
-                    <li class="">
+                    <li class="active">
                         <a href="TLogin.jsp" class="">Teacher</a>
                     </li>
 
                 </ul>
             </div>
         </div>
+
         <div class="content-w3ls">
             <div class="text-center icon">
                 <span class="fa fa-html5"></span>
             </div>
             <div class="content-bottom">
-                <form action="${pageContext.request.contextPath}/app/login" method="post">
+                <form action="${pageContext.request.contextPath}/app/TRegister" method="post">
                     <div class="field-group">
                         <span class="fa fa-user" aria-hidden="true"></span>
                         <div class="wthree-field">
-                            <input name="sId" id="sId" type="text" value="" placeholder="UserID" required>
+                            <input name="id" id="id" type="text" value="" placeholder="UserID" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-user" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="pw" id="pw" type="text" value="" placeholder="User Passward" required>
                         </div>
                     </div>
 
                     <div class="wthree-field">
-                        <button type="submit" class="btn">Login in</button>
+                        <button type="submit" class="btn">Register</button>
                     </div>
+
+                    <ul class="list-login">
+
+                        <li>
+                            <a href="TLogin.jsp" class="text-right">L o g i n</a>
+                        </li>
+                        <li class="clearfix"></li>
+                    </ul>
 
                 </form>
             </div>

@@ -4,16 +4,17 @@ package com.example.mybatis.service;
 import com.example.mybatis.dao.HomeworkDao;
 import com.example.mybatis.dao.StudentDao;
 import com.example.mybatis.dao.StudentHomeworkDao;
+import com.example.mybatis.dao.TeacherDao;
 import com.example.mybatis.model.Homework;
 import com.example.mybatis.model.Student;
 import com.example.mybatis.model.StudentHomework;
+import com.example.mybatis.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,12 +25,29 @@ public class AllTServiceImpl implements AllTService {
     private final HomeworkDao homeworkDao;
     private final StudentDao studentDao;
     private final StudentHomeworkDao studentHomeworkDao;
+    private final TeacherDao teacherDao;
 
     @Autowired
-    public AllTServiceImpl(HomeworkDao homeworkDao, StudentDao studentDao, StudentHomeworkDao studentHomeworkDao) {
+    public AllTServiceImpl(HomeworkDao homeworkDao, StudentDao studentDao, StudentHomeworkDao studentHomeworkDao, TeacherDao teacherDao) {
         this.homeworkDao = homeworkDao;
         this.studentDao = studentDao;
         this.studentHomeworkDao = studentHomeworkDao;
+        this.teacherDao = teacherDao;
+    }
+
+    @Override
+    public boolean login(HttpServletRequest req) {
+        Teacher t=new Teacher();
+        t.setId(Long.parseLong(req.getParameter("id")));
+        t.setPW(req.getParameter("pw"));
+        System.out.println(t.getId()+"     "+t.getPW());
+        List<Teacher> list=teacherDao.find4(t.getId(),t.getPW());
+
+        if(null == list || list.size() <= 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
@@ -84,6 +102,15 @@ public class AllTServiceImpl implements AllTService {
         s.setCreateTime(date);
 
         return studentDao.addStudent(s);
+
+    }
+
+    @Override
+    public boolean addTeacher(HttpServletRequest req) {
+        Teacher t=new Teacher();
+        t.setId(Long.parseLong(req.getParameter("id")));
+        t.setPW(req.getParameter("pw"));
+        return teacherDao.addTeacher(t);
 
     }
 

@@ -1,4 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+path+"/";
+%>
+
+<base href="<%=basePath%>">
+
 <html>
 <head>
     <title>Welcome to the Homework Platform</title>
@@ -67,7 +77,7 @@
                 </div>
             </form>
 
-            <form action="main.jsp" method=post >
+            <form action="TLogin.jsp" method=post >
                 <div class="animation-container animation-fade-up" data-animation-delay="1200">
                     <input type="submit" class="open-popup" value="Back" /></th>
                 </div>

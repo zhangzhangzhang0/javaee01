@@ -1,6 +1,5 @@
 package com.example.mybatis.controller;
 
-
 import com.example.mybatis.model.Homework;
 import com.example.mybatis.model.Student;
 import com.example.mybatis.model.StudentHomework;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 
 @RestController
 public class ApiController {
@@ -63,14 +61,39 @@ public class ApiController {
 
     @RequestMapping("/login")
     public void login (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+        System.out.println("11");
         List<Student> list= allSService.login(req);
         if(null == list || list.size() <= 0){
-            req.getRequestDispatcher("/main.jsp").forward(req,resp);
+            req.getRequestDispatcher("/SSubmit.jsp").forward(req,resp);
         }else{
             update1(req,resp);
         }
-        req.getRequestDispatcher("/main.jsp").forward(req,resp);
+        req.getRequestDispatcher("/SSubmit.jsp").forward(req,resp);
+    }
+    @RequestMapping("/Tlogin")
+    public void Tlogin (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        System.out.println("22");
+       // List<Student> list= allSService.login(req);
+        boolean b=allTService.login(req);
+        if(b==true){
+            req.getRequestDispatcher("/TChoose.jsp").forward(req,resp);
+        }else{
+            //update1(req,resp);
+        }
+        req.getRequestDispatcher("/TLogin.jsp").forward(req,resp);
+    }
+
+    @RequestMapping("/TRegister")
+    public void TRegister (HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        System.out.println("33");
+        // List<Student> list= allSService.login(req);
+        boolean b=allTService.addTeacher(req);
+        if(b==true){
+            req.getRequestDispatcher("/TChoose.jsp").forward(req,resp);
+        }else{
+            //update1(req,resp);
+        }
+        req.getRequestDispatcher("/TRegister.jsp").forward(req,resp);
     }
 
     //学生选择功能界面跳转到作业列表

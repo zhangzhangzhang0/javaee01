@@ -112,7 +112,7 @@
                   </a>
               </li>
               <li class="active">
-                  <a class="sa-side-ui" href="main.jsp">
+                  <a class="sa-side-ui" href="TLogin.jsp">
                       <span class="menu-item">Back to Home Page</span>
                   </a>
               </li>

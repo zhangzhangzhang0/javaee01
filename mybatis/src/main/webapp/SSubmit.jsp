@@ -86,7 +86,7 @@
         <!--------------------------------- 最左侧学生功能栏 ---------------------------------------->
         <ul class="list-unstyled side-menu">
             <li>
-                <a class="sa-side-home" href="main.jsp">
+                <a class="sa-side-home" href="Login.jsp">
                     <span class="menu-item">Back to Home Page</span>
                 </a>
             </li>
